@@ -1,0 +1,368 @@
+{
+  "format": "rili-mod",
+  "formatVersion": 1,
+  "payload": {
+    "prompt": {
+      "rearPrompt": {
+        "mode": "append",
+        "value": "【实教UI v8.2：统一行记录与通讯录分层显示协议】\n\n一、作用与连续性\n本协议替代旧版UI格式要求，只改输出语法；剧情、人设、人称、认知边界、情感阶段、数值计算和转存仍遵循原卡、世界书与当前存档。不得重开存档、恢复已删除人物、回滚事件或删掉已有资料。主角姓名、年龄、班级、头像、立绘及表情来源全部动态读取，行动、发言和重要决定服从玩家授权。\n每轮完整输出原生八页：学生证、通讯录、班级排名、心声、分歧、记忆、论坛、私信，最后给四项待选行动。正常输出使用下述@记录，不直接生成UI的HTML、Markdown围栏或旧中文短标记；例外仅为下文明确允许的d标签及已有原卡私信发件/状态行。旧存档只取已有事实与数据，新回复一律使用本协议；不支持旧中文短标记的显示替换。整理指令触发时，可在全部正常UI之后使用相应世界书规定的归档记录。\n\n二、唯一语法\n每个@记录独占一个真实文本行，名称统一小写。记录名与|之间、|两侧不额外加排版空格；姓名、分组、图片来源等元数据首尾不得有空格。正文内容本身的空格保留。使用半角|分隔；最后一个字段之后直接换行，不加】、]、}、尾部|或其他结束符。空字段仍保留分隔符，例如姓名与空头像后接台词时写“姓名||台词”。\n只有示例中的@/名称用于结束容器；容器必须成对闭合，同名容器不嵌套。字段内容不手动断行，长文本交给网页自然折行；不把@记录包进<p>、列表或代码块。占位文字要替换为实际值，重复项按实际条数展开，不要求每种气泡都出现。\n普通文字中的【】、中英文引号可直接写。每行非最后字段中的|、｜分别写成&#124;、&#65372;；最后字段一般可直接包含它们；mini的四个字段均不得含原始竖线，统一使用上述实体。原始&、<、>写成&amp;、&lt;、&gt;，已有实体不重复编码。姓名、终端分组名、图片来源会进入HTML属性，其中的双引号另写为&quot;。@p中成对的<d>与</d>本身不转义，其内部仍按文本处理；除此之外不生成HTML标签。\n头像和立绘不混用；ava:姓名、por:姓名、已提供完整URL及表情后缀按存档原样保留。不猜图、不借用他人图片、不改成统一表情；无头像来源可留空，保留姓名和气泡。主题类与终端分组沿用当前存档，同轮各页共用同一分组，不按轮次重编号。以下模板不固定任何人物或URL。\n评级使用A至E及其+/-，未知沿用未知、?或-，不填假数值；PP/CP可带千分位。尚无依据的论坛统计或点赞用?或省去统计文字，不以0冒充已确认结果。页面条目数以本轮实际展示条目为准。\n\n三、检查、状态与正文\n@check|完整检查摘要，各项目间用&#10;换行\n@status|日期与星期|时间|地点\n@event|本轮事件\n@phase|学年|剧情阶段|协议文本\n@story\n@p|一个完整叙事段落\n@say|NPC姓名|头像来源|「完整台词」\n@flip|NPC姓名|头像来源|「完整台词」|该角色内心台词\n@self|主角姓名|头像来源|「完整台词」\n@self-flip|主角姓名|头像来源|「完整台词」|主角内心台词\n@/story\ncheck按原卡要求逐项完整展示检查结果，不用一句“核对通过”代替整段，也不合并或删掉已有项目。各项在同一字段内以&#10;分行；每项给事实、核对结果及必要依据或已确认数值，不展示内部思考、逐步推理、推演草稿或预写剧情。转换现有回复时，原有检查摘要全文保留，仅转换外壳和必要转义。状态的日期、阶段、协议文本沿用存档，不因换语法复位。\n主角说话必须用self或self-flip气泡。重要人物的直接对话必须用say或flip，包括主要学生与老师、当前关键人物和与主角有重要互动的具名角色；不合并多人台词，不以文内变色替代气泡，不为凑气泡追加发言。是否展示内心遵循原卡。\n口头台词外层统一「……」，内部引用用『……』，书名号《》不改。允许留在叙述中的普通路人、匿名人群或不明说话者广播，在@p中写<d>「台词」</d>；动作和环境放在d外，d成对、无属性、不嵌套。气泡不再套d。术语、绰号、书面通信不自动当成口头台词；正文不写OAA评级。\n@say固定包含姓名、头像来源、台词三个字段。头像来源未知时必须留空并保留分隔符，写成@say|姓名||「台词」，禁止省略头像字段或其分隔符。\n\n四、终端、学生证与联系人\n@term|主题类|日期与时间\n@card|终端分组|主角姓名|性别|年龄|班级|PP余额|立绘来源\n@real|真实学力|真实身体|真实思考|真实贡献|真实综合\n@mask|伪装学力|伪装身体|伪装思考|伪装贡献|伪装综合\n@row|性格|内容\n@row|外貌|内容\n@row|特殊天赋|内容\n@row|重要物品|内容\n@row|本轮收支|内容\n@row|当前目标|内容\n@row|当前风险|内容\n@/card\n@contacts|终端分组|总人数\n@contact|姓名|性别|年龄|班级|头像来源|立绘来源\n@aff|好感整数|关系阶段|pos或neg|进度百分比\n@rel|关系简介\n@rank|学力|身体|思考|贡献\n@row|外貌|内容\n@row|性格|内容\n@row|已知信息|内容\n@row|近期动态|内容\n@row|关系履历|内容\n@row|好感变化|本轮增减与简短依据\n@/contact\n@/contacts\ncard后固定先real再mask；contact后固定先aff、rel、rank，再各项row。真实和伪装评级各五项，不互换；联系人评级四项。row标签只使用模板中的名称。\n通讯录保留全部仍在册者，按本轮更新后的好感整数从高到低排列，负数按数值比较；并列沿用上轮相对顺序。前10人使用上面的contact详细结构，超过10人的其余人仅用下述mini；不足10人时全部详卡。先输出详卡，再输出mini，姓名不得重复，contacts总人数等于两种条目合计；未互动者仍列出，不以“同上”“其余不变”代替。\n@mini|姓名|头像来源|关系简介|关系阶段(好感整数)\nmini只有四个字段且无结束标记，例如最后字段为警戒(-28)。仅显示头像、名字、关系简介与阶段/好感，不输出进度百分比、pos/neg、进度条、评级、履历或其他详情。显示降为mini不代表遗忘人物、重置关系或清空其既有资料；排名回到前10时从已知存档恢复详卡，不编造缺失年龄、评级或经历，未知资料如实标明未记录。\n详卡的关系履历每人最多150个可见字符（含标点，不计字段名和实体编码额外长度）。保留已记录的初遇及其时间/地点/关键互动，再保留重要转折与对当前仍有影响的近期事件；超长时合并重复叙述，优先删去不重要或久远且无后续影响的枝节，按时间压缩，禁止机械截尾。没有初遇记录时注明未记录，不补造；不为了凑满150字扩写。\n详卡好感变化只记本轮，无新增互动写0（本轮无新增互动），不重复上轮增量。关系阶段遵循原卡；详卡保留原进度条，按实际分母计算，正向pos、负向neg，百分比填绝对值，如0.6%，不写CSS表达式。mini不输出本轮增减明细。\n\n五、排名、心声、分歧与记忆\n@classes|终端分组|最近变动说明\n@class|排名标识|班级全称|CP|月PP每人\n@/classes\n班级按原卡实际顺序和数值维护，正则不计算PP；班级名称含当前年级及实际领导人，多人用/，不照抄示例身份。\n@voices|终端分组\n@voice|姓名|头像来源|角色内心台词\n@/voices\n尽可能展示本轮正文出场且符合原卡条件的角色，上限4人；足4则给4，不足按实际人数，不补未出场者。超出时优先直接互动与关键反应，内容符合人设、认知和情感阶段，不重复套话。心声不自动成为主角或其他人的已知情报。\n@branches|终端分组|待归档数量\n@branch|序号|原定事件|实际变化|影响范围\n@/branches\n无待归档分歧时数量为0、容器内不写条目；本轮无新增不等于清空旧条目。实际变化和影响只写偏离原著的部分。整理分歧完整导出后只移除已导出部分；不撤销世界线与人物关系，不恢复已归档事件，失败或未完整导出的继续保留。\n@memory|终端分组|LTM条数|STM条数\n@ltm|条数\n@memo|序号|时间|场景|事件\n@/ltm\n@stm|条数\n@memo|序号|时间|场景|事件\n@/stm\n@/memory\n长期、短期各最多7条；空表只保留容器和0计数，不插占位行。整理转存遵循原卡，不遗漏关键事实。记忆与分歧概述剧情、选择、信息、关系和后果，不逐项抄录好感、PP、CP、评级的增减或算式；仅保留后续判断必需的关键数值。专用数值面板仍准确维护，不据此清空记录。\n\n六、论坛与私信\n@forum|终端分组|展示帖子数|游戏内日期与已有统计文字\n@pin|类别|标题\n@by|发帖人|发布时间|回复总数|赞数\n@text|主帖正文\n@reply|回复者|楼层数字|回复内容\n@/pin\n@post|类别|标题\n@by|发帖人|发布时间|回复总数|赞数\n@text|主帖正文\n@reply|回复者|楼层数字|回复内容\n@/post\n@/forum\npin为置顶帖，post为普通帖；每帖固定先by再text，之后给0至多条reply并闭合对应容器。楼主由主帖自动生成，reply楼层填2、3等数字，不附“楼”。标题和text都是所在行最后字段，可直接含【】、引号或|。\n类别用公告、招新、情报、榜单、闲聊、求助、吐槽；传闻归情报或闲聊并明确未证实。默认3至5帖、主帖通常40至100字，有效公告优先置顶、最多2条；兼顾校园日常，不全围绕主角，不为凑数刷屏。展示数等于实际帖数，回复总数可大于已展示回复数，时间不晚于当前剧情。无内容则forum数量0且内部空；保留旧帖时间、署名和主要内容，进展通过新帖或回复表达。\n公告只用校方等已正式公开的消息，不预告未来考试或补造未知规则。传闻须有传播依据，可误解或反驳但不自动成为事实；不凭空新增重大考试、处分或退学，不泄露心声、秘密、私信、隐藏评级、计划与未来剧情。匿名账号不自动等于原著人物。展示不代表主角已读、相信、发帖、回复、转发或点赞，也不自动改变数值。\n@messages|终端分组|展示会话数\n@dm|联系人姓名|头像来源|会话栏时间\n@in|收到的消息正文\n@/dm\n@/messages\n@/term\n每个dm中按实际保留一条或多条in；收到的消息不再使用HTML的p标签。messages数量对应会话卡数，无记录时为0且内部空；已有旧消息不因本轮没新消息而删除。消息时间不晚于当前剧情，联系人与来源合理，不凭空建联或泄密；除已发生或已授权的行为外，不代主角发送、回复、已读或虚构送达状态。原卡已有、尚未接管的发件/状态HTML可沿用存档中的原生行，作为兼容例外；不自行设计class，也不把其他@记录套进p。\n论坛@text正文只使用纯文本，不生成ol、ul、li、p、br等HTML标签。需要列举时，在同一个@text行内使用①②③并以分号分隔，不插入真实换行。\n\n七、四项行动建议与最后核对\n@actions\n@act|① 第一条独立方向\n@act|② 第二条独立方向\n@act|③ 第三条独立方向\n@act|④ 快速推进：拟略过的日常与下一可介入节点\n@/actions\n固定四项，①②③均从当前场景独立可执行，在目标、对象、地点或策略上有实质区别，不能拆成顺序任务；不为差异制造危险或邀约。④沿当前分歧与因果推进，不强行回原著或预告未知结果。未选不执行；选择④后才概括过渡，在重要互动、冲突或需玩家决定处停下，不代选重大支出、考试策略、关系承诺或判定未解事件成败。\n输出前只在内部核对字段与闭合、八页共用分组、图片表情、气泡与引号、资料连续、通讯录好感排序与前10详卡、每人履历不超150字且保留初遇、mini无进度条、实际计数、心声上限和四项建议；将各项核对结果完整写入check，保留项目顺序；不展示内部推理过程。严禁通过删字段、补假数值、删除合法分隔符或伪造剧情来让格式看似通过。"
+      },
+      "lorebook": {
+        "mode": "append",
+        "entries": [
+          {
+            "enabled": true,
+            "triggerWords": [
+              "gemini-4-argon"
+            ],
+            "triggerWordsType": "OR",
+            "blackListWordsType": "OR",
+            "priority": 15,
+            "probability": 100,
+            "scanDepth": 3,
+            "triggerRange": [
+              "model-name"
+            ],
+            "impactRange": [
+              "rearPrompt"
+            ],
+            "contentMethod": "single",
+            "content": "【检查摘要精简补充】\n\n本模块仅调整新生成回复中“检查摘要”的展示篇幅，不改变主模组的剧情、核对要求、数值规则及其他UI。关于摘要篇幅的要求以本补充为准。\n\n一、格式与长度\n保留原有12项编号、名称及顺序，不合并、不删除项目，不用一句“全部通过”代替整段。\n继续使用主模组的@check格式：整段摘要占一个真实文本行，各项目之间用&#10;换行，不新增标记或HTML。\n普通轮次以350—550字为目标；跨日推进、多人结算或重大事件可放宽至550—800字。必要数据优先于字数限制，不为达标遗漏异常，也不凑字扩写。\n\n二、各项保留内容\n1. 场景分析：只写起止时间、最终场所、实际参与者及本轮核心事件。连续多日的重复作息合并概述。\n2. 性转Mod：只列当前启用的对应角色及是否变化，不重复说明世界书、头像和立绘已替换。\n3. 时间线校验：保留起止日期、当前学年与ARC；阶段变化时简述触发锚点，不展示日期取模过程。\n4. 行为评估：只写玩家授权的行动及执行范围，不复述场景经过。\n5. NPC反应推演：每名实际互动者仅给一句反应结论，不展开外貌、动作、台词或心理描写，不预写尚未发生的反应。\n6. 系统计算：保留本轮PP净变化与最终余额；跨日消费列汇总，不展开每日算式。CP只列发生变化的班级及结算值，未变写“CP无变动”。\n7. 好感度核对：仅列有变化者，格式为“姓名：增减→结算值”；阶段改变时补充新阶段。倍率、特殊折算统一注明一次，不逐人重复叙述互动经过；未变化者合并说明。\n8. 记忆系统：只写LTM、STM本轮条数及新增、合并或归档状态，不复述记忆正文。\n9. 命运分歧与暗线：只写分歧新增、保留或归档状态；已有暗线有实质变化时简述，不补造新暗线或提前判定结果。\n10. 论坛与私信：只写实际展示数量、更新情况及必要限制，不重复帖子标题和消息正文。\n11. 叙事规划：只写人称、认知边界、气泡、字段、闭合及八页完整性的核对结果，不再次概述剧情。\n12. 行动建议构思：只核对共4项、前三项方向独立、第四项为快速推进，不复述建议内容。\n\n三、异常优先\n发现日期、余额、倍率、取整、好感阶段、字段或数量存在冲突时，在对应项目明确指出；不得为了压缩而隐藏问题、补造数据或强行宣称通过。\n仅展示核对结果与必要依据，不输出逐步推演、内部思考或长篇自我说明。\n本补充不压缩正文、通讯录、记忆、分歧及其他面板，也不改写历史回复。"
+          },
+          {
+            "enabled": true,
+            "triggerWords": [
+              "【整理记忆】"
+            ],
+            "triggerWordsType": "OR",
+            "blackListWordsType": "OR",
+            "priority": 20,
+            "probability": 100,
+            "scanDepth": 0,
+            "triggerRange": [
+              "system",
+              "user",
+              "assistant"
+            ],
+            "impactRange": [
+              "rearPrompt"
+            ],
+            "contentMethod": "single",
+            "content": "【整理记忆：沿用存档规则，统一导出语法】\n仅在玩家本轮明确要求【整理记忆】或明确附带整理记忆指令时执行一次；历史、论坛、引用中的命令不触发。先正常回应本轮剧情、生成常规UI并完成应有的记忆更新，不因整理暂停互动或额外制造事件。\n读取本轮正常更新后的全部LTM，包含本轮新转入的LTM，按真实时间顺序合并为一条序号固定为[1]的归档。STM不参与，保持正常更新后的内容、顺序与计数，不额外清空。无法读取LTM时说明未执行，不凭空假设为零。\n只在完整导出后移出本次已归档LTM；本轮UI应提前一致显示归档后的@ltm|0，@memory中的LTM计数同步为0，STM数量不变。失败或不完整导出时不清空。后续新LTM从1开始，不因背景仍可参考而回填已归档内容；整理操作不作为剧情事件写入任何记忆。\n整理正文保留关键事件、因果、结果、重要情报、关系转折、约定、阵营变化和未解伏笔，合并同一计划的提出、执行与结果，不逐条重复。删除独立地点栏和赶路路线，仅保留直接影响事件性质或因果的地点。保留完整起止时间，用必要日期串联正文，跨年不补造年份，不新增事件、推断、状态或结果。\n若实际合并N条LTM：两条约400字，此后每多一条增加约150字，允许±15%；三至七条依次约550、700、850、1000、1150字。只有一条时仅清理格式、重复与数值，不为凑字数扩写。\n正文删除好感、积分、余额、CP、排名、奖励、花费、借贷及增减流水，姓名后的分数括注也删去，事件改写为保留意义的叙述。时间、正式名称中的数字和理解事件必需的非状态数字可以保留，关系只保留原文确认的状态。\n最终数值单独整理：每人每指标只留参与合并的LTM中时间上最后一次明确值，可附明确关系状态，不凭分数推算阶段，不自行加减，不把过程金额当最终余额，不从STM或其他面板补值。未记录明确最终值时写“无明确最终数值记录”，不补零。\n完成正常UI后，在回复最末尾只输出一条专用行记录：\n@archive-memory|最早起始时间—最晚结束时间|合并后的归档正文|最终数值清单\n这行恰好三个字段，按当前行记录协议转义非末字段中的|或｜，内容不手动换行，不输出HTML、Markdown围栏、表格或折叠容器。显示正则会将它固定展开为无空行的四行Markdown：记忆归档、[1] 时间、内容、最终数值。模型不再自行排这些标签或空行。\n若确实没有可整理LTM，在末尾输出：\n@note|当前没有可整理的长期记忆。\n若无法读取，则用@note如实说明未执行并保留原记忆。归档结束后不追加其他内容；同轮也触发整理分歧时，分歧导出在先，记忆归档置于最后。\n"
+          },
+          {
+            "enabled": true,
+            "triggerWords": [
+              "【整理分歧】"
+            ],
+            "triggerWordsType": "OR",
+            "blackListWordsType": "OR",
+            "priority": 20,
+            "probability": 100,
+            "scanDepth": 0,
+            "triggerRange": [
+              "system",
+              "user",
+              "assistant"
+            ],
+            "impactRange": [
+              "rearPrompt"
+            ],
+            "contentMethod": "single",
+            "content": "【整理分歧：统一归档记录】\n仅在玩家本轮明确发送【整理分歧】或明确要求整理时执行一次；历史、论坛、引用和模型自己的文字不触发。先按本轮授权完成正常剧情与八页UI，归档追加在四项行动建议之后；不额外推进时间、制造事件或代主角决定。\n读取当前可访问的世界书[命运的分歧]，结合当前待归档分歧、已发生剧情和记忆核对去重。新序号从该世界书末尾最后一条有效记录的序号+1开始，多条连续编号；只有确认条目不存在或确实没有历史记录时从1开始。不直接采用待归档表的临时No.。\n世界书未注入、截断或无法读取不等于不存在。无法核实末尾序号时，正常UI照常，末尾用@note说明无法核实且未执行，不猜编号、不清空待归档内容。\n已收录事件不重复导出；同因且连续发展的变化可合并，独立重大变化分开。已有分歧出现新后果时只记录新增差异。事件若仍与原著相同，不因出现在本轮剧情就算分歧。\n每条整理为四项：序号；原定事件；实际变化；影响范围。原定事件只概括有明确依据的原著经过与结果，不把本存档结果倒填成原著，也不编造原著细节。实际变化只写本存档相对原著已经发生的不同。影响范围只写这些差异已造成或有明确剧情依据确认的新增影响，不重述原著本有影响，不把尚未发生的推测写成事实。\n每条四项合计250—300字，以显示后的可见文字计，包含标签与序号，不计HTML、空白换行；不是每项250—300字。优先保留“原著基准→实际差异→新增影响”，删除重复、评价修饰与无关过程；称谓、时间和升降班前后归属要明确。好感、PP、CP等不逐项记账或列算式，仅保留理解分歧不可缺少的关键结果、阈值或处罚。\n所有条目放在同一导出容器中，严格使用：\n@export-branch\n@archive-branch|起始序号|原定事件概述|仅相对原著的实际变化|仅由变化新增的影响\n@archive-branch|下一序号|原定事件概述|实际变化|影响范围\n@/export-branch\n每条archive-branch只占一个真实文本行，共四个字段，最后不加结束符；字段内容不手动断行。按当前行协议处理文本实体及非末字段的|、｜。不输出HTML、四项标签、代码围栏或字数说明；显示正则会固定生成details与pre，每条四个逻辑行，字段间不空行，条目间仅空一行。只有一条则不写第二条，不照抄占位内容。\n无新增值得归档的事件时不凑条目，输出：\n@export-branch\n@note|本次无新增可归档分歧。\n@/export-branch\n先确定完整导出内容，再生成整轮答复。本轮UI只移除已经完整导出的待归档项，数量按剩余项维护；全部导出时输出@branches|当前分组|0与@/branches空容器，分组用存档实际值。不输出旧【空】标记。失败、不完整或无法确认编号时不清空；部分成功只移除成功部分。\n移除仅针对待归档列表，不撤销事件、世界线、关系、知情范围或后续影响，不清空记忆，不从历史中重新恢复已导出项。下次序号仍依世界书[命运的分歧]末尾继续，不因UI清空而重置。导出不代表已自动写入外部世界书，不能声称完成未经授权的外部写入；玩家仍按原流程复制归档。\n"
+          }
+        ]
+      }
+    },
+    "assistantRegexReplace": [
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*<p>[ \\t]*((?:@|＠)(?:\\/|／)?(?:archive\\-branch|archive\\-memory|export\\-branch|self\\-flip|contacts|branches|messages|contact|classes|actions|status|voices|branch|memory|check|event|phase|story|class|voice|forum|reply|flip|self|term|card|real|mask|rank|mini|memo|post|text|note|say|aff|rel|row|ltm|stm|pin|act|by|dm|in|p)(?=[|｜ \\t]|<\\/p>|$)[^\\r\\n]*?)[ \\t]*<\\/p>[ \\t]*$/gmi",
+        "replaceString": "$1"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][hH][eE][cC][kK][ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<details class=\"think-block\" ><summary>🔍 思维链分析</summary>\n<div class=\"think-content\" style=\"white-space:pre-wrap;\">\n$1</div>\n</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][tT][aA][tT][uU][sS][|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^<>\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][eE][vV][eE][nN][tT][|｜]([^<>\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][pP][hH][aA][sS][eE][|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<top>\n<style>.cog-cage{display:none}</style>\n<span class=\"cog-cage\">$7</span>\n<div class=\"time-loc\">📅 $1 |⏰ $2 |📍 $3</div>\n<div class=\"event\">▸ $4</div>\n<div class=\"year-tag\">$5</div>\n<!--剧情阶段:$6-->\n</top>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][tT][oO][rR][yY][ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][sS][tT][oO][rR][yY][ \\t]*$/gm",
+        "replaceString": "<div class=\"story-text\">\n$1</div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][pP][ \\t]*[|｜][ \\t]*((?:[^<>\\r\\n]|<d>|<\\/d>)*?)[ \\t]*$/gm",
+        "replaceString": "<p>$1</p>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][aA][yY][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"chat-left\"><img src=\"$2\" alt=\"$1\" class=\"chat-avatar\"><div class=\"chat-content\"><div class=\"chat-name\">$1</div><div class=\"bubble-normal\">$3</div></div></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][fF][lL][iI][pP][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"chat-left\"><img src=\"$2\" alt=\"$1\" class=\"chat-avatar\"><div class=\"chat-content\"><div class=\"chat-name\">$1</div><label class=\"bubble-flip-container\"><input class=\"bubble-flip-toggle\" hidden=\"\" type=\"checkbox\"><div class=\"bubble-flipper\"><div class=\"bubble-front\">$3</div><div class=\"bubble-back\">$4</div></div></label></div></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][eE][lL][fF][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"chat-right\"><img src=\"$2\" alt=\"$1\" class=\"chat-avatar mc\"><div class=\"chat-content\"><div class=\"chat-name\">$1</div><div class=\"bubble-normal\">$3</div></div></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][eE][lL][fF]\\-[fF][lL][iI][pP][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"chat-right\"><img src=\"$2\" alt=\"$1\" class=\"chat-avatar mc\"><div class=\"chat-content\"><div class=\"chat-name\">$1</div><label class=\"bubble-flip-container\"><input class=\"bubble-flip-toggle\" hidden=\"\" type=\"checkbox\"><div class=\"bubble-flipper\"><div class=\"bubble-front\">$3</div><div class=\"bubble-back\">$4</div></div></label></div></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][tT][eE][rR][mM][ \\t]*[|｜][ \\t]*(t\\d+)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][tT][eE][rR][mM][ \\t]*$/gm",
+        "replaceString": "<div class=\"term $1\">\n<div class=\"term-scr\">\n<div class=\"term-bar\"><b>高度育成 · 学生终端</b><span>$2</span></div>\n$3</div>\n</div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][aA][rR][dD][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([0-9,]+|\\?)[|｜]([^|｜<>\"\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][rR][eE][aA][lL][|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[\\r\\n][ \\t\\r\\n]*[@＠][mM][aA][sS][kK][|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[\\r\\n]+([\\s\\S]*?)^[ \\t]*[@＠][／\\/][cC][aA][rR][dD][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a1\" name=\"$1\" open><summary>学生证</summary>\n<div class=\"dz\">\n<div class=\"dz-l\">\n<div class=\"dz-name\">$2</div>\n<div class=\"dz-meta\"><b>性别</b><span>$3</span><b>年龄</b><span>$4</span><b>班级</b><span>$5</span><b>PP</b><span class=\"num\">$6</span></div>\n<div class=\"oaa-pair\">\n<table class=\"oaa\"><caption>真实面板</caption><tr><td>学力</td><td><r data-r=\"$8\">$8</r></td></tr><tr><td>身体能力</td><td><r data-r=\"$9\">$9</r></td></tr><tr><td>机动思考力</td><td><r data-r=\"$10\">$10</r></td></tr><tr><td>社会贡献性</td><td><r data-r=\"$11\">$11</r></td></tr><tr class=\"ov\"><td>総合</td><td><r data-r=\"$12\">$12</r></td></tr></table>\n<table class=\"oaa\"><caption>伪装面板(OAA)</caption><tr><td>学力</td><td><r data-r=\"$13\">$13</r></td></tr><tr><td>身体能力</td><td><r data-r=\"$14\">$14</r></td></tr><tr><td>机动思考力</td><td><r data-r=\"$15\">$15</r></td></tr><tr><td>社会贡献性</td><td><r data-r=\"$16\">$16</r></td></tr><tr class=\"ov\"><td>総合</td><td><r data-r=\"$17\">$17</r></td></tr></table>\n</div>\n</div>\n<div class=\"dz-r\"><div class=\"card-portrait mc\"><img src=\"$7\" alt=\"$2\"></div></div>\n</div>\n$18</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][oO][nN][tT][aA][cC][tT][sS][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][cC][oO][nN][tT][aA][cC][tT][sS][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a2\" name=\"$1\"><summary>通讯录<em>$2</em></summary>\n$3</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][oO][nN][tT][aA][cC][tT][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\"\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][aA][fF][fF][|｜](-?\\d+)[|｜]([^|｜<>\\r\\n]*?)[|｜](pos|neg)[|｜](\\d+[.]\\d+%|\\d+%)[\\r\\n][ \\t\\r\\n]*[@＠][rR][eE][lL][|｜]([^<>\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][rR][aA][nN][kK][|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[|｜]([A-E][+-]?|未知|\\?|[-—–－])[\\r\\n]+([\\s\\S]*?)^[ \\t]*[@＠][／\\/][cC][oO][nN][tT][aA][cC][tT][ \\t]*$/gm",
+        "replaceString": "<details class=\"ct\"><summary><img src=\"$5\" alt=\"$1\" class=\"ct-av\"><span class=\"ct-n\">$1</span><span class=\"ct-s\">$8</span><span class=\"ct-r\">$11</span><ptrack><pbar class=\"$9\" style=\"width:$10\"></pbar></ptrack></summary>\n<div class=\"dz\">\n<div class=\"dz-l\">\n<div class=\"dz-name\">$1</div>\n<div class=\"dz-meta\"><b>性别</b><span>$2</span><b>年龄</b><span>$3</span><b>班级</b><span>$4</span><b>好感</b><span class=\"num\">$7/1000</span></div>\n<table class=\"oaa\"><caption>OAA</caption><tr><td>学力</td><td><r data-r=\"$12\">$12</r></td></tr><tr><td>身体能力</td><td><r data-r=\"$13\">$13</r></td></tr><tr><td>机动思考力</td><td><r data-r=\"$14\">$14</r></td></tr><tr><td>社会贡献性</td><td><r data-r=\"$15\">$15</r></td></tr></table>\n</div>\n<div class=\"dz-r\" data-n=\"$1\"><div class=\"card-portrait\"><img src=\"$6\" alt=\"$1\"></div></div>\n</div>\n$16</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][mM][iI][nN][iI][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"ct-mini\"><img src=\"$2\" alt=\"$1\" class=\"ct-av\"><span class=\"ct-n\">$1</span><span class=\"ct-r\">$3</span><span class=\"ct-s\">$4</span></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][rR][oO][wW][ \\t]*[|｜][ \\t]*(当前风险)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"card-row\"><strong>$1</strong><span class=\"desc warn\">$2</span></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][rR][oO][wW][ \\t]*[|｜][ \\t]*(外貌|性格|特殊天赋|重要物品|本轮收支|当前目标|已知信息|近期动态|关系履历|好感变化)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"card-row\"><strong>$1</strong><span class=\"desc\">$2</span></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][lL][aA][sS][sS][eE][sS][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][cC][lL][aA][sS][sS][eE][sS][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a3\" name=\"$1\"><summary>班级排名</summary>\n<table class=\"cp\"><tr><th>排名</th><th>班级</th><th>CP</th><th>月PP/人</th></tr>\n$3</table>\n<div class=\"card-row\"><strong>最近变动</strong><span class=\"desc\">$2</span></div>\n</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][cC][lL][aA][sS][sS][ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([0-9,]+|\\?)[ \\t]*[|｜][ \\t]*([0-9,]+|\\?)[ \\t]*$/gm",
+        "replaceString": "<tr><td class=\"cl\">$1</td><td>$2</td><td class=\"num\">$3</td><td class=\"num\">$4</td></tr>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][vV][oO][iI][cC][eE][sS][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][vV][oO][iI][cC][eE][sS][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a4\" name=\"$1\"><summary>心声</summary>\n$2</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][vV][oO][iI][cC][eE][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"vo\"><img src=\"$2\" alt=\"$1\" class=\"vo-av\"><b>$1</b><p>$3</p></div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][bB][rR][aA][nN][cC][hH][eE][sS][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][bB][rR][aA][nN][cC][hH][eE][sS][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a5\" name=\"$1\"><summary>分歧<em>$2</em></summary>\n<table><tr><th>No.</th><th>原定事件</th><th>实际变化</th><th>影响范围</th></tr>\n$3</table>\n</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][bB][rR][aA][nN][cC][hH][ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<tr><td>$1</td><td>$2</td><td>$3</td><td>$4</td></tr>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][mM][eE][mM][oO][rR][yY][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][mM][eE][mM][oO][rR][yY][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a6\" name=\"$1\"><summary>记忆<em>$2·$3</em></summary>\n$4</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][lL][tT][mM][ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][lL][tT][mM][ \\t]*$/gm",
+        "replaceString": "<table><caption>长期记忆区(LTM:$1/7)</caption><tr><th>No.</th><th>Time</th><th>Scene</th><th>Event</th></tr>\n$2</table>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][sS][tT][mM][ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][sS][tT][mM][ \\t]*$/gm",
+        "replaceString": "<table><caption>短期记忆区(STM:$1/7)</caption><tr><th>No.</th><th>Time</th><th>Scene</th><th>Event</th></tr>\n$2</table>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][mM][eE][mM][oO][ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<tr><td>$1</td><td>$2</td><td>$3</td><td>$4</td></tr>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][fF][oO][rR][uU][mM][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][fF][oO][rR][uU][mM][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a7\" name=\"$1\"><summary>论坛<em>$2</em></summary>\n<div class=\"bbs-hd\"><b>高育论坛</b><span>$3</span></div>\n$4</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][pP][iI][nN][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^<>\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][bB][yY][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([0-9,]+|\\?)[|｜]([0-9,]+|\\?)[\\r\\n][ \\t\\r\\n]*[@＠][tT][eE][xX][tT][|｜]([^<>\\r\\n]*?)[\\r\\n]+([\\s\\S]*?)^[ \\t]*[@＠][／\\/][pP][iI][nN][ \\t]*$/gm",
+        "replaceString": "<details class=\"th top\" data-t=\"$1\"><summary><b>$2</b><span>$3 · $4 · 回复 $5 · 赞 $6</span></summary>\n<div class=\"fl lz\"><b>$3</b><i>楼主</i>$7</div>\n$8</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][pP][oO][sS][tT][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^<>\\r\\n]*?)[\\r\\n][ \\t\\r\\n]*[@＠][bB][yY][|｜]([^|｜<>\"\\r\\n]*?)[|｜]([^|｜<>\\r\\n]*?)[|｜]([0-9,]+|\\?)[|｜]([0-9,]+|\\?)[\\r\\n][ \\t\\r\\n]*[@＠][tT][eE][xX][tT][|｜]([^<>\\r\\n]*?)[\\r\\n]+([\\s\\S]*?)^[ \\t]*[@＠][／\\/][pP][oO][sS][tT][ \\t]*$/gm",
+        "replaceString": "<details class=\"th\" data-t=\"$1\"><summary><b>$2</b><span>$3 · $4 · 回复 $5 · 赞 $6</span></summary>\n<div class=\"fl lz\"><b>$3</b><i>楼主</i>$7</div>\n$8</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][rR][eE][pP][lL][yY][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([2-9]\\d*|1\\d+)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"fl\"><b>$1</b><i>$2楼</i>$3</div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][mM][eE][sS][sS][aA][gG][eE][sS][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][mM][eE][sS][sS][aA][gG][eE][sS][ \\t]*$/gm",
+        "replaceString": "<details class=\"app a8\" name=\"$1\"><summary>私信<em>$2</em></summary>\n$3</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][dD][mM][ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\"\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][dD][mM][ \\t]*$/gm",
+        "replaceString": "<div class=\"dm\"><div class=\"dm-h\"><img src=\"$2\" alt=\"$1\" class=\"dm-av\"><b>$1</b><time>$3</time></div>\n$4</div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][iI][nN][ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<p class=\"in\">$1</p>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][aA][cC][tT][iI][oO][nN][sS][ \\t]*\\r?\\n([\\s\\S]*?)^[ \\t]*[@＠][／\\/][aA][cC][tT][iI][oO][nN][sS][ \\t]*$/gm",
+        "replaceString": "<details><summary>行动建议</summary>\n$1</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][aA][cC][tT][ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "<div class=\"rec\">$1</div>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/(^[ \\t]*[@＠][aA][rR][cC][hH][iI][vV][eE]\\-[bB][rR][aA][nN][cC][hH][ \\t]*[|｜][^\\r\\n]*)[\\r\\n][ \\t\\r\\n]*(?=^[ \\t]*[@＠][aA][rR][cC][hH][iI][vV][eE]\\-[bB][rR][aA][nN][cC][hH][ \\t]*[|｜])/gm",
+        "replaceString": "$1\n"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][aA][rR][cC][hH][iI][vV][eE]\\-[bB][rR][aA][nN][cC][hH][ \\t]*[|｜][ \\t]*(\\d+|\\?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "序号：$1\n原定事件：$2\n实际变化：$3\n影响范围：$4\n"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][nN][oO][tT][eE][ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "$1"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][eE][xX][pP][oO][rR][tT]\\-[bB][rR][aA][nN][cC][hH][ \\t]*\\r?\\n\\s*([\\s\\S]*?)\\s*^[ \\t]*[@＠][／\\/][eE][xX][pP][oO][rR][tT]\\-[bB][rR][aA][nN][cC][hH][ \\t]*$/gm",
+        "replaceString": "<details class=\"divergence-export\">\n<summary>整理分歧｜展开复制</summary>\n<pre style=\"white-space:pre-wrap;overflow-wrap:anywhere;\">$1</pre>\n</details>"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/^[ \\t]*[@＠][aA][rR][cC][hH][iI][vV][eE]\\-[mM][eE][mM][oO][rR][yY][ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^|｜<>\\r\\n]*?)[ \\t]*[|｜][ \\t]*([^<>\\r\\n]*?)[ \\t]*$/gm",
+        "replaceString": "记忆归档\n[1] 时间：$1\n内容：$2\n最终数值：$3"
+      },
+      {
+        "enabled": true,
+        "applyMode": "front-end",
+        "messageRole": "all",
+        "regex": "/(^|[^\\\\*])\\*\\*([^*<>\\r\\n]+)\\*\\*(?!\\*)/gm",
+        "replaceString": "$1<strong>$2</strong>"
+      }
+    ]
+  },
+  "injectedStyles": "img[alt=\"绫小路清隆\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ05mrUyO2oxepoQkE6i8mafYcYW9VyAAJaHQAClgmoVoukaxnLMJL3PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"绫小路清隆\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21U0l.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"堀北铃音\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ05WrUyOkGJfyVhWPuHPSuou9QqhGPAAJZHQAClgmoVuptv-sI7KOuPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"堀北铃音\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21wOX.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"栉田桔梗\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ04GrUyOIFvVRcQpT1oHM0RoPGt0uPAAJUHQAClgmoVtsIDcv11ncVPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"栉田桔梗\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20tSI.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"佐仓爱里\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ04WrUyOPbH2Jc75wNs0uRnKDgSWbbAAJVHQAClgmoVo4592jl58MTPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"佐仓爱里\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21JVf.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"轻井泽惠\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ06GrUyPBnsFmaHHivMeI_hj40pHNNAAJcHQAClgmoVobWan0WwpurPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"轻井泽惠\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21mgV.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"平田洋介\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ052rUyO5olCH37xYgs05IJUaIWC_yAAJbHQAClgmoVpVwNtBCrjX2PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"平田洋介\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21ibe.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"高圆寺六助\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ05GrUyOdf1h44iIqTuTEjDoipQW-PAAJYHQAClgmoVnN0Dr9zGEsdPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"高圆寺六助\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21cDg.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"须藤健\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ072rUyPk_qP0qP5mG1Zwqeo5uA3geAAJjHQAClgmoVjRzGR9tckh0PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"须藤健\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2G2vS.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"池宽治\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ042rUyOYtR0Eo-U7K6_XkSazZXSUmAAJXHQAClgmoVm8IpHGDiD6xPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"池宽治\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21AlV.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"山内春树\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ06mrUyPKu219jyf0eZaTW1DCVaO5BAAJeHQAClgmoVuBQxxCPWeYIPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"山内春树\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2Efqv.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"幸村辉彦\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ07mrUyPdl-Fhm7D0zie3UMOh6dMBIAAJiHQAClgmoVsUGCimCCoWDPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"幸村辉彦\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2EbQs.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"三宅明人\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ06WrUyPHMs6w5Mez-CxNAworNDoGkAAJdHQAClgmoVq5d-Zc5foVpPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"三宅明人\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2EJmF.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"长谷部波瑠加\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ032rUyODWAb1HDINMonifyg89OeLEAAJTHQAClgmoViJoE8Wr4-lUPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"长谷部波瑠加\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw204ta.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"佐藤麻耶\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ04mrUyOXLtva-jYvxBUInMVI_hsl7AAJWHQAClgmoVoekiX9XTeX6PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"佐藤麻耶\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw21xob.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"王美雨\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ07GrUyPUMk5nMG8i5tZl5-5k89DQDAAJgHQAClgmoVusgYXJ8LkuAPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"王美雨\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2EhEx.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"篠原皋月\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ07WrUyPbS9dE0YFRXi0AtI8MVoZGxAAJhHQAClgmoVkIdfiGrpsodPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"篠原皋月\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2E64R.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"松下千秋\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ062rUyPQWfgABlYu0u0BHy9fGY_-aJAACXx0AApYJqFblcfrdi2mg3D0E.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"松下千秋\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2EALG.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"龙园翔\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ02WrUx-W85f54_N1mbn04oj2Iw4rQAAJIHQAClgmoVvETZB3pY8ZOPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"龙园翔\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2Gz3Q.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"伊吹澪\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ03GrUx-mIyCqKLP-xrMjwMIpHKKV1AAJLHQAClgmoViaqY9RanimyPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"伊吹澪\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2G4te.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"椎名日和\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ03mrUyJ2K1JWxbmQrr9I4ID82ecmdAAJRHQAClgmoVh6nvDIrOeRaPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"椎名日和\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2GQKx.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"石崎大地\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ022rUx-iumSITLvOdT65qU7t5B8-5AAJKHQAClgmoVoc7y6Z7Ah8pPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"石崎大地\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2Gwns.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"山田阿尔伯特\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ02mrUx-dSNAux6-nCoGc0NaEHO9dIAAJJHQAClgmoVskJL64lbZZxPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"山田阿尔伯特\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2G5wF.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"一之濑帆波\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ012rUxo5tGEZI2CqOGYRwZh24OQsDAAI_HQAClgmoVu10lk4evGyAPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"一之濑帆波\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2M4Jp.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"神崎隆二\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ01GrUxopCWd0wyc4PRemeVr-XkDqYAAI8HQAClgmoVuwWfndcZ7ofPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"神崎隆二\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2MzVs.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"柴田飒\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ002rUxok8-3R1ATU8J7tD5dRkNsBCAAI7HQAClgmoVqeyl1w-vhsKPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"柴田飒\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2MKSp.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"白波千寻\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ00mrUxoj6TVENIRkf5aFVFp9YZcrvAAI6HQAClgmoVoiKs_VdloIlPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"白波千寻\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2GyDF.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"网仓麻子\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ01WrUxotkW7_fpRiM7wHr-bCGVHYHAAI9HQAClgmoVuU058M7D7w-PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"网仓麻子\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2MRUl.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"小桥梦\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ01mrUxo1K7fYsTiNFBhBZj6ACyLcJAAI-HQAClgmoVpjddwUlu6jDPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"小桥梦\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2Mj5B.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"坂柳有栖\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0ymrUxJVUqCTgBwPU9u5lz9CyOcnCAAIwHQAClgmoVgvVdcIetIiiPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"坂柳有栖\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2V7EJ.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"葛城康平\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0y2rUxJY1nPnEkFGaKZ6lgylw16gTAAIxHQAClgmoVl3GY9-jrDoKPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"葛城康平\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2V1pI.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"神室真澄\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0z2rUxKArRt67h_zg4kVYnWzvclRvAAI1HQAClgmoVohtCCyCkbWBPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"神室真澄\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2WcMu.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"桥本正义\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0zGrUxJh_TsYlELKUSAPIL1_MPmcbAAIyHQAClgmoViuot0nJ5YX0PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"桥本正义\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2VkpS.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"西川亮子\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ00GrUxKE_qczy5iUTUVKTt21t_H8QAAI2HQAClgmoVogIx77hNRT1PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"西川亮子\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2WU9p.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"白石飞鸟\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0yWrUxJNLYBGqMiaEbgLC7HA7uxwtAAIvHQAClgmoVmlH8B4-rKN1PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"白石飞鸟\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2VBrx.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"山村美纪\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0zmrUxJ5WjAyVBPG3JIKRakIlRWZNAAI0HQAClgmoVgTglgyJlXXhPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"山村美纪\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2Wfjt.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"森下蓝\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0zWrUxJxfLbES6shFsIqIeiI4MVl7AAIzHQAClgmoVhqbjUKAL7eRPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"森下蓝\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2VbZF.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"茶柱佐枝\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ08mrUydT9IsmkFGlvs_RFHUI9qUMpAAJnHQAClgmoVoGbcGp6MEOHPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"茶柱佐枝\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20Xwu.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"星之宫知惠\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ082rUydWQgV_G97ADGZbJG-hX-8ElAAJoHQAClgmoVhRr66Tra4EePQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"星之宫知惠\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20O6Q.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"坂上数马\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ08WrUydI939IIwxesJ4IGzQsnLNBIAAJmHQAClgmoVnjHNEyyeS8FPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"坂上数马\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20EaS.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"真嶋智也\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ08GrUydEh5q9SN_6du86ot4xOG4p5AAJlHQAClgmoVu68oZbSOqHTPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"真嶋智也\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20Run.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"天泽一夏\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0-WrUyks0xEoKoLfYECRhmVDfh7DmAAJuHQAClgmoVhgVjGOsdXbyPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"天泽一夏\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20CCv.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"八神拓也\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ09WrUykSAg_ywm-hFn1bQG794QvxLAAJqHQAClgmoVpus1EiNClVXPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"八神拓也\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2lMhJ.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"七濑翼\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0-GrUyknhCxFWNFyBIO58bn-aCqt7AAJtHQAClgmoVnp6yAsN0g3TPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"七濑翼\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw20dYP.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"宝泉和臣\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ09mrUykXk14g50L3ZIqMjEBz9DPJSAAJrHQAClgmoVgLU9jpdMj6gPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"宝泉和臣\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2lsY7.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"宇都宫陆\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ09GrUykIg8M3onAx0uW5ineROiF2EAAJpHQAClgmoVrDHIxVDYZioPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"宇都宫陆\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2l5qQ.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"椿樱子\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ092rUykdahXOOvXpcSbNbRerEym1eAAJsHQAClgmoVgazRTQ-2W69PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"椿樱子\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2ltTu.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"南云雅\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0_2rUyp3qnlnDmh2fr_54NgABghjyKwACdB0AApYJqFbGKO6V6xq9Fj0E.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"南云雅\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2lBgS.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"鬼龙院枫花\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0_GrUypjR44_LFW4U1ZJlbCoDt0p9AAJxHQAClgmoVieVrECSnwt9PQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"鬼龙院枫花\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2cEil.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"堀北学\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0_mrUypwOdYt-ChiKbcqLnaHdVwLnAAJzHQAClgmoVrb_Y3yjibTbPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"堀北学\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2cyJt.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"橘茜\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0_WrUyplWTIM17HRRhLE9_yQfr3Z2AAJyHQAClgmoVhjO3VQCN7HcPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"橘茜\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2ciba.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"朝比奈荠\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0-2rUypYUyNKqy6g09dxicY9wqR8zAAJwHQAClgmoVpK5egNOKC2WPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"朝比奈荠\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2cuKN.png\") !important;\n\tdisplay: inline-block !important;\n}\n\nimg[alt=\"桐山生叶\"] {\n\tcontent: url('https://piv.cc.cd/file/BQACAgUAAyEGAASLVN5eAAJ0-mrUypMlRo-SOt2PswTIBbI2TjrgAAJvHQAClgmoVuAJTPIDrTPvPQQ.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"桐山生叶\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://iili.io/nw2c3KB.png\") !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"绫小路清音\"] {\n\tcontent: url('https://assets.kotodamai.com/i/snQK5JEVsu4c1AXIhQT3YzeLNaiCoJED/image.png') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"绫小路清音\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://assets.kotodamai.com/i/x-6nciNGtULjcWeRgaec2-Y8Ok8QEyvu/image.png\") !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"龙园翔子\"] {\n\tcontent: url('https://assets.kotodamai.com/i/DkHFPWXTWT5SKlzv55JviYwjTjJyyHDT/image.webp') !important;\n\tdisplay: inline-block !important;\n}\nimg[alt=\"龙园翔子\"]:is(.ct-av, .vo-av, .chat-avatar, .dm-av) {\n\tcontent: url(\"https://assets.kotodamai.com/i/4ylaVKpxilawPVCEilaRBOemz0Ysbkqj/image.png\") !important;\n\tdisplay: inline-block !important;\n}"
+}
